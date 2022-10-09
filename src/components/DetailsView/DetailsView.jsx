@@ -8,6 +8,7 @@ function DetailsView(){
     const movieDetails = useSelector(store=>store.details); // select details from redux store
 
     console.log('these are movie details', movieDetails);
+    console.log('object length', Object.keys(movieDetails))
 
     // dispatch movie id to saga to GET details and
     // SET to state in details reducer (redux)
@@ -25,13 +26,15 @@ function DetailsView(){
     return(
         // array.map all genres
         <div id="details-view">
-            <div>ID IS: {movieid}</div>
-            <h2 className="details-title">Movie Title</h2>
-            <p className="details-description">description here</p>
-            <img className="details-img"/>
+            <h2 className="details-title">{movieDetails.title}</h2>
+            <p className="details-description">{movieDetails.description}</p>
+            <img className="details-img" src={movieDetails.poster}/>
             <div className="genre-holder">
-                <div className="genre-tag">Genre 1</div>
-                <div className="genre-tag">Genre 2</div>
+                {Object.keys(movieDetails).length===0 
+                ? null 
+                : movieDetails.genres.map((genre, index)=>{
+                    return <div key={index} className='genre-tag'>{genre}</div>
+                })}
             </div>
             <button className="details-return-btn">Return to library</button>
         </div>

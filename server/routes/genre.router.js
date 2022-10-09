@@ -1,5 +1,4 @@
 const express = require('express');
-const { query } = require('../modules/pool');
 const router = express.Router();
 const pool = require('../modules/pool')
 
@@ -9,8 +8,8 @@ router.get('/', (req, res) => {
   let queryText = `SELECT "genres"."name" FROM "genres";`
   pool.query(queryText)
   .then((response) =>{
-    console.log('Select all genres successful', response);
-    res.send(response);
+    console.log('Select all genres successful', response.rows);
+    res.send(response.rows);
   }).catch((error) => console.log('Error with select * genres', error));
 });
 
@@ -23,8 +22,13 @@ router.get('/:movieid', (req, res) => {
                   WHERE "movie_id"=$1;`
   pool.query(queryText, [movieId])
   .then((response)=>{
-    console.log('get this movies genres response:', response);
-    res.send(response);
+    // convert response.rows into an array of genres (rather than an array of objects)
+    let genres = [];
+    for(let obj of response.rows){
+      genres.push(obj.movie_genres);
+    }
+  
+    res.send(genres);
   }).catch((error)=> console.log('Error with get this movie genre', error));
 })
 

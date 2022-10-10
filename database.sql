@@ -79,3 +79,15 @@ VALUES
 (12,8), (12,9),           -- Social Net
 (13,4), (13,10), (13,6),  -- Titanic
 (14,3), (14,2), (14,4);   -- Toy Story
+
+
+--SELECT all genres from specific movie
+SELECT "genres"."name" AS "movie_genres" FROM "genres"
+JOIN "movies_genres" ON "genres"."id"="movies_genres"."genre_id"
+WHERE "movie_id"=1;
+
+--SELECT all possible genres
+SELECT "genres"."name" FROM "genres";
+
+--SELECT all from a movie based on id
+SELECT * FROM "movies" WHERE "id"=1;

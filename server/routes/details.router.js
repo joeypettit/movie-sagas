@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool')
 
-
 // this route will query the movie title, poster, description, and all the genres of the movie 
 // with the id found in the url param. It will send back an object like this...
 // { 
@@ -42,9 +41,5 @@ router.get('/:movieid', (req, res) => {
         }).catch((error)=>console.log('Error with getting details', error));
     }).catch((error)=> console.log('Error with get this movie genre', error));
 });
-
-
-
-
 
 module.exports = router;

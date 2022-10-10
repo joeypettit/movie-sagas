@@ -1,4 +1,4 @@
-import {useParams} from 'react-router-dom';
+import {useParams, useHistory} from 'react-router-dom';
 import {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -6,9 +6,7 @@ function DetailsView(){
     const {movieid} = useParams(); // grab id from url param
     const dispatch = useDispatch(); // create dispatch
     const movieDetails = useSelector(store=>store.details); // select details from redux store
-
-    console.log('these are movie details', movieDetails);
-    console.log('object length', Object.keys(movieDetails))
+    const history=useHistory(); // create history function
 
     // dispatch movie id to saga to GET details and
     // SET to state in details reducer (redux)
@@ -19,7 +17,6 @@ function DetailsView(){
         });
     }
     
-
     // fetch details on first render
     useEffect(()=>fetchDetails(), []);
 
@@ -36,7 +33,7 @@ function DetailsView(){
                     return <div key={index} className='genre-tag'>{genre}</div>
                 })}
             </div>
-            <button className="details-return-btn">Return to library</button>
+            <button className="details-return-btn" onClick={()=>history.push('/')}>Return to List</button>
         </div>
     )
 }

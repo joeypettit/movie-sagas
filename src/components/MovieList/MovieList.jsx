@@ -12,17 +12,6 @@ function MovieList() {
     const [detailedMovie, setDetailedMovie]=useState('none');
 
 
-    // this function will push user to details page for this movie
-    // it will also dispatch fetch actions which will build a details
-    // object for the movie send it to the detailsReducer
-    function enterDetailsView(movieId){
-        
-
-         // push to details page
-    }
-
-
-
     useEffect(() => {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
